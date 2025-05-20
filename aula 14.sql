@@ -16,9 +16,7 @@ INSERT INTO clientes VALUES
 (3, 'Pedro Lima', 'Curitiba', 'pedro.lima@email.com'),
 (4, 'Ana Paula', 'Belo Horizonte', 'ana.paula@email.com');
  
-CREATE TABLE produtos (
-    id_produto INT PRIMARY KEY,
-    nome_produto VARCHAR(50),
+CREATE TABLE produtos (o VARCHAR(50),
     preco DECIMAL(10, 2),
     estoque INT
 );
@@ -92,3 +90,6 @@ select 	C.nome, count(P.id_pedido) as quantidade_pedidos from detalhes_pedidos D
 inner join pedidos P on D.id_pedido = P.id_pedido
 inner join clientes C on C.id_cliente = P.id_cliente group by P.id_cliente;
 
+
+    id_produto INT PRIMARY KEY,
+    nome_produt

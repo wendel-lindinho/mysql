@@ -164,9 +164,26 @@ else "erro"
 end as status from precos;
 
 /*13 Aplique um desconto diferente com  CASE dependendo do preço do produto. Desconto de 10% para produtos abaixo de R$150 e 5% para os demais.*/
-select produto_id, preco, case 
-when preco <= 50 then "barato"	
-when preco > 50  and preco < 200 then "Medio"
-when preco >= 200 then "caro"
-else "erro"
-end as status from precos;
+	select produto_id, preco, case 
+	when preco <= 150 then preco * 0.9 
+	when preco > 150 then preco * 0.95
+	else "erro"
+	end as preco_final from precos;
+
+	/* 14 Supondo que exista uma tabela estoque  utilize IF para indicar se a quantidade está "Disponível" ou "Esgotado".*/
+	 
+	 
+	CREATE TABLE estoque (     produto_id INT,     quantidade INT,     FOREIGN KEY (produto_id) REFERENCES produtos(id) ); 
+	INSERT INTO estoque (produto_id, quantidade) VALUES(1, 10), (2, 0), (3, 5), (4, 15);
+	select produto_id, quantidade,
+	if(quantidade >=1, 'disponivel', 'esgotado') from estoque;
+
+	/*15 Utilize CASE para aplicar um ajuste de preço baseado na marca. Aumente o preço em 10% para 'Logitech' e em 5% para 'HP'.*/
+	
+    select pro.nome produto, mar.nome marca, pre.preco preco_original,
+    case
+    when mar.nome = 'Logitech' then pre.preco * 1.10
+    when mar.nome = 'HP' then pre.preco * 1.05
+    end as preco_ajustado
+    from produtos pro inner join marcas mar on 	pro.marca_id = mar.id
+    inner join precos pre on pre.produto_id = pro.id;
